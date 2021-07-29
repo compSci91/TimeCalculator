@@ -43,25 +43,30 @@ max_number_of_rows = sheet.max_row
 
 
 for expression_number in range(1,15):
-    total_duration = timedelta(weeks=0, days=0, hours=0, minutes=0, seconds=0, milliseconds=0, microseconds=0)
+    total_touch_duration = timedelta(weeks=0, days=0, hours=0, minutes=0, seconds=0, milliseconds=0, microseconds=0)
     for row in range(2, max_number_of_rows + 1):
         if(sheet.cell(row, 1).value == f"{expression_number}. Touching expression" or sheet.cell(row, 1).value == f"{expression_number}.Touching expression"):
             current_duration_string = sheet.cell(row,4).value
             # print(current_duration_string)
             current_duration = convert_duration_string(current_duration_string)
-            total_duration = total_duration + current_duration
+            total_touch_duration = total_touch_duration + current_duration
 
-    print(f"{expression_number}. Touching expression: ", total_duration)
 
-    total_duration = timedelta(weeks=0, days=0, hours=0, minutes=0, seconds=0, milliseconds=0, microseconds=0)
+    total_non_touch_duration = timedelta(weeks=0, days=0, hours=0, minutes=0, seconds=0, milliseconds=0, microseconds=0)
     for row in range(2, max_number_of_rows + 1):
         if(sheet.cell(row, 1).value == f"{expression_number}. Not touching expression" or sheet.cell(row, 1).value == f"{expression_number}.Not touching expression"):
             current_duration_string = sheet.cell(row,4).value
             current_duration = convert_duration_string(current_duration_string)
-            total_duration = total_duration + current_duration
+            total_non_touch_duration = total_non_touch_duration + current_duration
 
-    print(f"{expression_number}. Not touching expression: ", total_duration)
+    print(f"{expression_number}. Touching expression: ", total_touch_duration, "Percentage: ", total_touch_duration / (total_touch_duration+total_non_touch_duration))
+    print(f"{expression_number}. Not touching expression: ", total_non_touch_duration, "Percentage: ", total_non_touch_duration / (total_touch_duration+total_non_touch_duration))
+
+
+
+
     print("")
+
 
 
 
