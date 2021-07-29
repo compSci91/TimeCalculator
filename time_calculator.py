@@ -17,9 +17,13 @@ def calculate_time_difference(start_time_string, end_time_string):
 wb = openpyxl.load_workbook("Amanda.xlsx")
 
 sheet = wb["Sheet1"]
-start_time_string = sheet.cell(2,2).value
-end_time_string = sheet.cell(2,3).value
-time_difference = str(calculate_time_difference(start_time_string, end_time_string)).replace(".", ",", 1)
 
-sheet.cell(2, 4, value=time_difference)
+max_number_of_rows = sheet.max_row
+
+for row in range(2, max_number_of_rows + 1):
+    start_time_string = sheet.cell(row,2).value
+    end_time_string = sheet.cell(row,3).value
+    time_difference = str(calculate_time_difference(start_time_string, end_time_string)).replace(".", ",", 1)
+    sheet.cell(row, 4, value=time_difference)
+
 wb.save("Amanda.xlsx")
