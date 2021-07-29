@@ -1,17 +1,15 @@
 from datetime import datetime, date, time
 import re
-# time1 = time(9, 30, 45, 10000)
-# time2 = time(9, 30, 45, 9999)
-#
-# print(datetime.combine(date.min, time1) - datetime.combine(date.min, time2))
 
-time_string = "0:00:09,4"
-# time_array = time_string.split(":,") + [0]
-time_array = re.split('[,:]', time_string)
-print(time_array)
-# seconds_and_milliseconds = time_array[2].split(",")
-# print(seconds_and_milliseconds)
-# time_array[2] = seconds_and_milliseconds[0]
-# time_array[3] = seconds_and_milliseconds[1]
-# print(time_array)
-# 0:00:10,7
+
+def convert_time_string(time_string):
+    time_array = re.split('[,:]', time_string)
+    return time(int(time_array[0]), int(time_array[1]), int(time_array[2]), int(time_array[3])*100000)
+
+def calculate_time_difference(start_time_string, end_time_string):
+    start_time = convert_time_string(start_time_string)
+    end_time = convert_time_string(end_time_string)
+    return datetime.combine(date.min, end_time) - datetime.combine(date.min, start_time)
+
+
+print(calculate_time_difference("0:00:09,4", "0:00:10,7"))
