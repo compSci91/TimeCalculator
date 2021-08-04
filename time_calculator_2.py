@@ -2,12 +2,7 @@ import openpyxl
 
 wb = openpyxl.load_workbook("Trelle Dandridge.xlsx")
 
-
-
-
-
-
-for sheet_number in range(1, 2):
+for sheet_number in range(1, 15):
     sheet_name = "Sheet" + str(sheet_number)
     sheet = wb[sheet_name]
 
@@ -16,7 +11,6 @@ for sheet_number in range(1, 2):
     row = 3
     max_number_of_rows = sheet.max_row
     total_touch_time = 0
-    print(max_number_of_rows)
 
     while row <= max_number_of_rows:
         is_touching_expression = sheet.cell(row,4).value
@@ -48,8 +42,9 @@ for sheet_number in range(1, 2):
 
     print("***********************************")
     print(sheet_name)
+    print(f'Number of rows: {max_number_of_rows}')
+
     total_time = sheet.cell(max_number_of_rows, 3).value - sheet.cell(3,3).value
-    print(total_time)
 
     print(f'Total touch time {total_touch_time}')
     print(f'Total time {total_time}')
