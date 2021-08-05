@@ -2,6 +2,19 @@ import openpyxl
 
 wb = openpyxl.load_workbook("Trelle Dandridge.xlsx")
 
+EXPRESSION_NUMBER = 1
+TOTAL_EXPRESSION_TIME = 2
+TOTAL_TIME_TOUCHING_EXPRESSION = 3
+PERCENTAGE_OF_TIME_TOUCHING_EXPRESSION = 4
+PERCENTAGE_OF_TIME_NOT_TOUCHING_EXPRESSION = 5
+TOTAL_ELEMENT_TOUCH_TIME = 6
+PERCENTAGE_OF_TIME_TOUCHING_ELEMENT = 7
+PERCENTAGE_OF_TIME_NOT_TOUCHING_ELEMENT = 8
+PERCENTAGE_OF_TIME_TOUCHING_ELEMENT_GIVEN_TOUCHING_EXPRESSION = 9
+PERCENTAGE_OF_TIME_NOT_TOUCHING_ELEMENT_GIVEN_TOUCHING_EXPRESSION = 10
+
+info_sheet = wb["Sheet15"]
+
 for sheet_number in range(1, 15):
     sheet_name = "Sheet" + str(sheet_number)
     sheet = wb[sheet_name]
@@ -10,7 +23,7 @@ for sheet_number in range(1, 15):
 
     row = 3
     max_number_of_rows = sheet.max_row
-    total_touch_time = 0
+    total_element_touch_time = 0
     # print(max_number_of_rows)
 
     while row <= max_number_of_rows:
@@ -34,7 +47,7 @@ for sheet_number in range(1, 15):
 
                     # print(f'Start row {start_row} -- End row {end_row}')
                     # print(end_time - start_time)
-                    total_touch_time = total_touch_time + (end_time - start_time)
+                    total_element_touch_time = total_element_touch_time + (end_time - start_time)
                     should_continue_searching_for_end_row = False
                     row = potential_end_row
         else:
@@ -46,9 +59,26 @@ for sheet_number in range(1, 15):
     print(f'Number of rows: {max_number_of_rows}')
 
     total_time = sheet.cell(max_number_of_rows, 3).value - sheet.cell(3,3).value
+    percentage_of_time_touching_an_element = total_element_touch_time / total_time
+    percentage_of_time_not_touching_an_elemnt = 1 - percentage_of_time_touching_an_element
 
-    print(f'Total element touch time {total_touch_time}')
+    print(f'Total element touch time {total_element_touch_time}')
     print(f'Total Expression time {total_time}')
-    print(f'Percentage of time touching an element: {total_touch_time / total_time}')
-    print(f'Percentage of time NOT an element touching: { 1 - total_touch_time / total_time}')
+    print(f'Percentage of time touching an element: {percentage_of_time_touching_an_element}')
+    print(f'Percentage of time NOT touching an element: {percentage_of_time_not_touching_an_elemnt}')
     print("***********************************")
+
+    expression_row_number = sheet_number + 1
+    total_time_touching_expression = info_sheet.cell(expression_row_number, TOTAL_TIME_TOUCHING_EXPRESSION).value
+
+    percentage_of_time_touching_an_element_given_touching_an_expression = total_element_touch_time / total_time_touching_expression
+    percentage_of_time_not_touching_an_element_given_touching_an_expression = 1 - percentage_of_time_touching_an_element_given_touching_an_expression
+
+    info_sheet.cell(row= expression_row_number, column=TOTAL_ELEMENT_TOUCH_TIME, value= total_element_touch_time)
+    info_sheet.cell(row= expression_row_number, column=PERCENTAGE_OF_TIME_TOUCHING_ELEMENT, value=percentage_of_time_touching_an_element)
+    info_sheet.cell(row= expression_row_number, column=PERCENTAGE_OF_TIME_NOT_TOUCHING_ELEMENT, value=percentage_of_time_not_touching_an_elemnt)
+
+    info_sheet.cell(row= expression_row_number, column=PERCENTAGE_OF_TIME_TOUCHING_ELEMENT_GIVEN_TOUCHING_EXPRESSION, value=percentage_of_time_touching_an_element_given_touching_an_expression)
+    info_sheet.cell(row= expression_row_number, column=PERCENTAGE_OF_TIME_NOT_TOUCHING_ELEMENT_GIVEN_TOUCHING_EXPRESSION, value=percentage_of_time_not_touching_an_element_given_touching_an_expression)
+
+wb.save("Trelle Dandridge.xlsx")

@@ -4,7 +4,7 @@ wb = openpyxl.load_workbook("Trelle Dandridge.xlsx")
 
 EXPRESSION_NUMBER = 1
 TOTAL_EXPRESSION_TIME = 2
-TOTAL_TOUCH_TIME = 3
+TOTAL_TIME_TOUCHING_EXPRESSION = 3
 PERCENTAGE_OF_TIME_TOUCHING_EXPRESSION = 4
 PERCENTAGE_OF_TIME_NOT_TOUCHING_EXPRESSION = 5
 TOTAL_ELEMENT_TOUCH_TIME = 6
@@ -16,14 +16,14 @@ PERCENTAGE_OF_TIME_NOT_TOUCHING_ELEMENT_GIVEN_TOUCHING_EXPRESSION = 10
 info_sheet = wb["Sheet15"]
 info_sheet.cell(row=1, column=EXPRESSION_NUMBER, value="EXPRESSION NUMBER")
 info_sheet.cell(row=1, column=TOTAL_EXPRESSION_TIME, value="TOTAL EXPRESSION TIME")
-info_sheet.cell(row=1, column=TOTAL_TOUCH_TIME, value="TOTAL TOUCH TIME")
+info_sheet.cell(row=1, column=TOTAL_TIME_TOUCHING_EXPRESSION, value="TOTAL TIME TOUCHING EXPRESSION")
 info_sheet.cell(row=1, column=PERCENTAGE_OF_TIME_TOUCHING_EXPRESSION, value="PERCENTAGE OF TIME TOUCHING EXPRESSION")
 info_sheet.cell(row=1, column=PERCENTAGE_OF_TIME_NOT_TOUCHING_EXPRESSION, value="PERCENTAGE OF TIME NOT TOUCHING EXPRESSION")
 info_sheet.cell(row=1, column=TOTAL_ELEMENT_TOUCH_TIME, value="TOTAL ELEMENT TOUCH TIME")
 info_sheet.cell(row=1, column=PERCENTAGE_OF_TIME_TOUCHING_ELEMENT, value="PERCENTAGE OF TIME TOUCHING ELEMENT")
 info_sheet.cell(row=1, column=PERCENTAGE_OF_TIME_NOT_TOUCHING_ELEMENT, value="PERCENTAGE OF TIME NOT TOUCHING ELEMENT")
 info_sheet.cell(row=1, column=PERCENTAGE_OF_TIME_TOUCHING_ELEMENT_GIVEN_TOUCHING_EXPRESSION, value="PERCENTAGE OF TIME TOUCHING ELEMENT GIVEN TOUCHING EXPRESSION")
-info_sheet.cell(row=1, column=PERCENTAGE_OF_TIME_NOT_TOUCHING_ELEMENT_GIVEN_TOUCHING_EXPRESSION, value="Expression Number")
+info_sheet.cell(row=1, column=PERCENTAGE_OF_TIME_NOT_TOUCHING_ELEMENT_GIVEN_TOUCHING_EXPRESSION, value="PERCENTAGE OF TIME NOT TOUCHING AN ELEMENT GIVEN TOUCHING EXPRESSION")
 
 
 
@@ -83,14 +83,10 @@ for sheet_number in range(1, 15):
     expression_row_number = sheet_number + 1
     info_sheet.cell(row= expression_row_number, column=EXPRESSION_NUMBER, value= sheet_number)
     info_sheet.cell(row= expression_row_number, column=TOTAL_EXPRESSION_TIME, value= total_time)
-    info_sheet.cell(row= expression_row_number, column=TOTAL_TOUCH_TIME, value= total_touch_time)
+    info_sheet.cell(row= expression_row_number, column=TOTAL_TIME_TOUCHING_EXPRESSION, value= total_touch_time)
     info_sheet.cell(row= expression_row_number, column=PERCENTAGE_OF_TIME_TOUCHING_EXPRESSION, value=percentage_of_time_touching_expression)
     info_sheet.cell(row= expression_row_number, column=PERCENTAGE_OF_TIME_NOT_TOUCHING_EXPRESSION, value=percentage_of_time_not_touching_expression)
-    # info_sheet.cell(row= expression_row_number, column=TOTAL_ELEMENT_TOUCH_TIME, value="TOTAL ELEMENT TOUCH TIME")
-    # info_sheet.cell(row= expression_row_number, column=PERCENTAGE_OF_TIME_TOUCHING_ELEMENT, value="PERCENTAGE OF TIME TOUCHING ELEMENT")
-    # info_sheet.cell(row= expression_row_number, column=PERCENTAGE_OF_TIME_NOT_TOUCHING_ELEMENT, value="PERCENTAGE OF TIME NOT TOUCHING ELEMENT")
-    # info_sheet.cell(row= expression_row_number, column=PERCENTAGE_OF_TIME_TOUCHING_ELEMENT_GIVEN_TOUCHING_EXPRESSION, value="PERCENTAGE OF TIME TOUCHING ELEMENT GIVEN TOUCHING EXPRESSION")
-    # info_sheet.cell(row= expression_row_number, column=PERCENTAGE_OF_TIME_NOT_TOUCHING_ELEMENT_GIVEN_TOUCHING_EXPRESSION, value="Expression Number")
+
 
     # sheet.cell(row=7, column=1, value="chess")
 wb.save("Trelle Dandridge.xlsx")
