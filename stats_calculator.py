@@ -1,6 +1,9 @@
 import openpyxl
+import sys
 
-wb = openpyxl.load_workbook("Trelle Dandridge.xlsx")
+file_name = sys.argv[1]
+print(file_name)
+wb = openpyxl.load_workbook(file_name)
 
 EXPRESSION_NUMBER = 1
 TOTAL_EXPRESSION_TIME = 2
@@ -53,6 +56,7 @@ for sheet_number in range(1, 15):
 
                 else:
                     end_row = potential_end_row - 1
+                    print(f'Start row: {start_row}')
                     start_time = float(sheet.cell(start_row, 3).value)
                     end_time = float(sheet.cell(end_row, 3).value)
 
@@ -89,7 +93,7 @@ for sheet_number in range(1, 15):
 
 
     # sheet.cell(row=7, column=1, value="chess")
-wb.save("Trelle Dandridge.xlsx")
+wb.save(file_name)
 
 
 for sheet_number in range(1, 15):
@@ -134,11 +138,16 @@ for sheet_number in range(1, 15):
     print("***********************************")
     print(sheet_name)
 
-    if(sheet.cell(max_number_of_rows, 3).value):
-        print("Max Number of Rows calculated CORRECTLY")
-    else:
-        print("max Number of rows calculated INCORRECTLY")
-        max_number_of_rows = max_number_of_rows - 1
+    should_continue_searching_for_max_rows = True
+
+    while(should_continue_searching_for_max_rows):
+        if(sheet.cell(max_number_of_rows, 3).value):
+            print("Max Number of Rows calculated CORRECTLY")
+            should_continue_searching_for_max_rows = False
+
+        else:
+            print("max Number of rows calculated INCORRECTLY")
+            max_number_of_rows = max_number_of_rows - 1
 
     print(f'Number of rows: {max_number_of_rows}')
 
@@ -165,4 +174,4 @@ for sheet_number in range(1, 15):
     info_sheet.cell(row= expression_row_number, column=PERCENTAGE_OF_TIME_TOUCHING_ELEMENT_GIVEN_TOUCHING_EXPRESSION, value=percentage_of_time_touching_an_element_given_touching_an_expression)
     info_sheet.cell(row= expression_row_number, column=PERCENTAGE_OF_TIME_NOT_TOUCHING_ELEMENT_GIVEN_TOUCHING_EXPRESSION, value=percentage_of_time_not_touching_an_element_given_touching_an_expression)
 
-wb.save("Trelle Dandridge.xlsx")
+wb.save(file_name)
